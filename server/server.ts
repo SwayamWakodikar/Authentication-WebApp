@@ -1,6 +1,7 @@
-import express from 'express'
-import cors from 'cors'
+import { Router } from "express"
 
-const app=express();
-
+const router=Router();
+router.get('/',(req,res)=>{
+    res.send("System Running")
+})
 
