@@ -3,7 +3,7 @@ import { Request,Response } from "express";
 import bcrypt from "bcryptjs";
 
 export async  function handleUserSignUp(req:Request,res:Response){
-    const{name,email,password}=new req.body as unknown as {name: string,email: string,password:string};
+    const{name,username,email,password}=new req.body as unknown as {name: string,username:string,email: string,password:string};
 
     try{
         const existingUser=await User.findOne({email});
@@ -18,13 +18,14 @@ export async  function handleUserSignUp(req:Request,res:Response){
         //creating and saving new User
         const newUser=new User({
             name: name,
+            username:username,
             email: email,
             password: hashedPassword
         })
         await newUser.save();
         return res.status(201).json({
             message: "User created successfully!!!",
-            user:{name: newUser.name,email: newUser.email
+            user:{name: newUser.name,username:newUser.username,email: newUser.email
             }
         });
     }
