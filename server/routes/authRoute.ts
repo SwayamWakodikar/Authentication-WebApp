@@ -1,6 +1,9 @@
-import express from 'express';
-const router = express();
-router.get('/',(req,res)=>{
+import {Request, Response, Router} from "express";
+import { handleUserSignUp } from "../controllers/authController";
+const router =Router();
 
+router.post('/signup',handleUserSignUp);
+router.get('/',(req:Request,res:Response)=>{
+    res.send("Authentication Route Works")
 })
-module.exports=router
+export default router;
