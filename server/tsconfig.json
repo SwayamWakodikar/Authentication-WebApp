@@ -1,6 +1,4 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
-
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
@@ -13,11 +11,7 @@
 
     "strict": true,
     "skipLibCheck": true,
-
-    "types": ["node"],
-
+    "types": ["node","cors"],
     "sourceMap": true
   }
-
-
 }
