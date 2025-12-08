@@ -1,12 +1,11 @@
-import express,{Request,Response} from "express";
-import router from "./routes/authRoute";
+import express,{Express,Request,Response} from "express";
 import bodyParser from "body-parser";
-import cors from "cors";
+import cors from 'cors';
 import dotenv from "dotenv";
 import authRoute from "./routes/authRoute"
 
 dotenv.config();
-const app=express();
+const app: Express = express();
 const PORT=process.env.PORT|| 5000;
 //add MONGOURI after db integration
 app.use(cors());
