@@ -17,7 +17,13 @@ const userModel=new mongoose.Schema({
     },
     password:{
         type:String,
-        required:true,
+        required:false, // <--- CHANGE: set to false to allow Google sign-in
+    },
+    googleId: { // <--- ADD THIS FIELD: to store Google's unique ID
+        type: String,
+        required: false,
+        unique: true,
+        sparse: true // <--- Add sparse index to allow multiple null values
     }
 },{
     timestamps:true
