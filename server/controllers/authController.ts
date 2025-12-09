@@ -1,9 +1,9 @@
-import User from "../model/user";
+import User from "../model/user.js";
 import { Request,Response } from "express";
 import bcrypt from "bcryptjs";
 
 export async  function handleUserSignUp(req:Request,res:Response){
-    const{name,username,email,password}=new req.body as unknown as {name: string,username:string,email: string,password:string};
+const { name, username, email, password } = req.body as {name: string,username:string,email: string,password:string};
 
     try{
         const existingUser=await User.findOne({email});
