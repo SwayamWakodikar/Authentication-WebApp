@@ -2,13 +2,14 @@ import express,{Express,Request,Response} from "express";
 import bodyParser from "body-parser";
 import cors from 'cors';
 import dotenv from "dotenv";
-import authRoute from "./routes/authRoute.js"
-import mongoose from "mongoose"; // Import mongoose
-// Import new packages
+import mongoose from "mongoose"; 
 import passport from 'passport'; 
 import session from 'express-session';
-
+import authRoute from "./routes/authRoute.js";
+import './config/passport.js';
 dotenv.config();
+// import pass from './config/passport.js';
+
 const connectDB = async () => {
     try {
         const uri = process.env.MONGO_URI; 
@@ -23,26 +24,26 @@ const connectDB = async () => {
         process.exit(1);
     }
 }
+
 const startServer = () => {
     const app: Express = express();
     const PORT=process.env.PORT|| 5000;
     
     app.use(cors());
     app.use(bodyParser.json());
+
     app.use(session({
         secret: process.env.SESSION_SECRET!,
         resave: false,
         saveUninitialized: false,
         cookie: {
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24 // 24 hours
+            maxAge: 1000 * 60 * 60 * 24 
         }
     }));
     app.use(passport.initialize());
     app.use(passport.session());
-    // ----------------------------------------------
-
-
+    
     app.get('/',(req:Request,res:Response)=>{
         res.send("HEllo Guyz");
     })
@@ -53,9 +54,6 @@ const startServer = () => {
     })
 }
 
-// ----------------------------------------------
-// 3. Run Connection and Server
-// ----------------------------------------------
 connectDB().then(() => {
     startServer();
 });

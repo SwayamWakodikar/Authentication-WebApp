@@ -214,8 +214,8 @@ const LoginForm: React.FC = () => {
   };
 
   const handleGoogleLogin = (): void => {
-    alert('Google login clicked - Integrate with your OAuth provider');
-  };
+    window.location.href = 'http://localhost:5000/api/auth/google';
+};
 
   const handleForgotPassword = (): void => {
     alert('Forgot password clicked');
