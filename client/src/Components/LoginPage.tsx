@@ -214,7 +214,7 @@ const LoginForm: React.FC = () => {
   };
 
   const handleGoogleLogin = (): void => {
-    window.location.href = 'https://authentication-webapp-1.onrender.com';
+    window.location.href = 'https://authentication-webapp-1.onrender.com/api/auth/google';
 };
 
   const handleForgotPassword = (): void => {
