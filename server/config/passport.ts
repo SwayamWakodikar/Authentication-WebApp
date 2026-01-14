@@ -40,7 +40,8 @@ passport.use(new GoogleStrategy({
                 googleId: googleId,
                 name: profile.displayName,
                 email: email,
-                username: email?.split('@')[0] + Math.floor(Math.random() * 10000).toString().padStart(4, '0')
+                username: email?.split('@')[0] + Math.floor(Math.random() * 10000).toString().padStart(4, '0'),
+                profileImage: profile.photos?.[0]?.value
             });
             await newUser.save();
             done(null, newUser);

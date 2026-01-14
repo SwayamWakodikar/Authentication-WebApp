@@ -1,9 +1,9 @@
-import express,{Express,Request,Response} from "express";
+import express, { Express, Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from 'cors';
 import dotenv from "dotenv";
-import mongoose from "mongoose"; 
-import passport from 'passport'; 
+import mongoose from "mongoose";
+import passport from 'passport';
 import session from 'express-session';
 import authRoute from "./routes/authRoute.js";
 import './config/passport.js';
@@ -12,7 +12,7 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-        const uri = process.env.MONGO_URI; 
+        const uri = process.env.MONGO_URI;
         if (!uri) {
             console.error("MONGO_URI is not defined in environment variables. Please check your .env file.");
             process.exit(1);
@@ -27,9 +27,12 @@ const connectDB = async () => {
 
 const startServer = () => {
     const app: Express = express();
-    const PORT=process.env.PORT|| 5000;
-    
-    app.use(cors());
+    const PORT = process.env.PORT || 5000;
+
+    app.use(cors({
+        origin: 'http://localhost:5173',
+        credentials: true
+    }));
     app.use(bodyParser.json());
 
     app.use(session({
@@ -38,18 +41,18 @@ const startServer = () => {
         saveUninitialized: false,
         cookie: {
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24 
+            maxAge: 1000 * 60 * 60 * 24
         }
     }));
     app.use(passport.initialize());
     app.use(passport.session());
-    
-    app.get('/',(req:Request,res:Response)=>{
+
+    app.get('/', (req: Request, res: Response) => {
         res.send("HEllo Guyz");
     })
-    app.use("/api/auth",authRoute);
+    app.use("/api/auth", authRoute);
 
-    app.listen((PORT),()=>{
+    app.listen((PORT), () => {
         console.log(`Server Runing on ${PORT}`);
     })
 }
